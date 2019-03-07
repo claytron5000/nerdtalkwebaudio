@@ -1,0 +1,46 @@
+.reveal h1 {
+    font-size: 1.6em;
+}
+.reveal h2 {
+    font-size: 1.4em;
+}
+.reveal h3 {
+    font-size: 1.2em;
+}
+.reveal h3 {
+    font-size: 1.2em;
+}
+.reveal h4 code, .reveal h3 code {
+    font-size: 1.4em;
+}
+
+body {
+    background: lightblue;
+}
+
+.reveal .controls {
+    color: chocolate;
+}
+
+.reveal blockquote {
+    background: transparent;
+    border: none;
+    margin: 1em 0;
+    font-size: 0.9em;
+    width: 90%;
+    text-align: left;
+    box-shadow: none;
+    padding: 0 0 0 2em;
+    border-left: black solid;
+}
+
+
+.reveal blockquote p {
+    margin: 0;
+}
+
+.side-by > p, .side-by > img {float: left;width: 49%;display: block;}
+
+.small-font li {
+    font-size: 0.9em;
+}

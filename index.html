@@ -1,49 +1,423 @@
 <!doctype html>
 <html>
-	<head>
-		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-		<title>reveal.js</title>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-		<link rel="stylesheet" href="css/reveal.css">
-		<link rel="stylesheet" href="css/theme/black.css">
+	<title>reveal.js</title>
 
-		<!-- Theme used for syntax highlighting of code -->
-		<link rel="stylesheet" href="lib/css/zenburn.css">
+	<link rel="stylesheet" href="css/reveal.css">
+	<link rel="stylesheet" href="css/theme/sky.css">
+	<link rel="stylesheet" href="css/theme/custom.css">
 
-		<!-- Printing and PDF exports -->
-		<script>
-			var link = document.createElement( 'link' );
-			link.rel = 'stylesheet';
-			link.type = 'text/css';
-			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
-			document.getElementsByTagName( 'head' )[0].appendChild( link );
-		</script>
-	</head>
-	<body>
-		<div class="reveal">
-			<div class="slides">
-				<section>Slide 1</section>
-				<section>Slide 2</section>
-			</div>
+	<!-- Theme used for syntax highlighting of code -->
+	<link rel="stylesheet" href="lib/css/zenburn.css">
+
+	<!-- Printing and PDF exports -->
+	<script>
+		var link = document.createElement('link');
+		link.rel = 'stylesheet';
+		link.type = 'text/css';
+		link.href = window.location.search.match(/print-pdf/gi) ? 'css/print/pdf.css' : 'css/print/paper.css';
+		document.getElementsByTagName('head')[0].appendChild(link);
+	</script>
+</head>
+
+<body>
+	<div class="reveal">
+		<div class="slides">
+			<section>
+				<section data-markdown>
+					<textarea data-template>
+						# Exploring the Web Audio API and frameworks
+						The goal of this talk is to demonstrate some basics of the Web Audio API, explore why we use
+						frameworks, and talk a little about what makes web development hard. (Hint: it's the browsers.)
+					</textarea>
+				</section>
+
+				<section>
+					A little about me: I'm work at a company that makes SaaS applications targeted to non-profits, and
+					specifically small independant schools. My wife and I live in a small appartment with two kids.
+				</section>
+
+				<section class="side-by">
+					<p>We've kind of out grown the apartment and as such we have adapted some stratedgies to deal with
+						the
+						challenges of close living.</p>
+					<img src="images/james-and-stokely.jpg">
+				</section>
+
+				<section data-markdown>
+					<textarea data-template>
+						Recently our sound machine broke, and while I know there are a thousand sound machines apps available online or
+						in the app store, why not build my own. Afterall:
+					</textarea>
+				</section>
+
+				<section data-markdown>
+					<textarea
+						data-template> > why get something for free, when you can waste time building it yourself?</textarea>
+				</section>
+
+			</section>
+			<section>
+				<section data-markdown>
+					<textarea data-template>
+						## Goal: make a sound machine
+						- find sounds
+						- browser interface
+						- looping
+						- volume control
+						
+				</textarea>
+				</section>
+				<section data-markdown>
+					<textarea data-template>
+						### Finding Sounds
+						Finding good sounds is hard. I used mostly things found on [freesound.org](https://freesound.org/help/faq/#what-is-this-site-anyway), a collaborative database of creative common sounds. I'm not an audio engineer, but even I can tell the quality here is a mixed bag. 
+				</textarea>
+				</section>
+			</section>
+
+			<!-- <section data-markdown>
+				<textarea data-template>
+						## 
+						
+						 When I was learning programming, I spent a lot of time on stackoverflow, w3schools, and other code learning websites. Big brain now knows [Mozilla Developer Network](https://developer.mozilla.org) is _the_ place to start for web technologies. 
+			</textarea>
+			</section> -->
+			<section>
+				<section data-markdown>
+					<textarea data-template>
+						## Web Audio API
+						<p>This system allows provides us with a modular system for building audio applicaitons in JavaScript. It can work hand-in-hand with the HTML5 `audio` element, or completely on it's own.</p>
+
+					</textarea>
+				</section>
+				<section data-markdown>
+					<textarea data-template>
+						### Browser Support
+						Sorry, IE, you aren't invited to this party.
+						<img src="images/webaudioapisupport.png">
+						Checkout [jPlayer](http://jplayer.org/) if you need IE support.
+					</textarea>
+				</section>
+				<section data-markdown class="side-by">
+					<textarea data-template ]>
+
+						### `AudioContext`
+						> The `AudioContext` interface represents an audio-processing graph built from audio modules linked together, each represented by an AudioNode.
+						
+						<audio src="sounds/361251__japanyoshithegamer__sci-fi-cooldown.wav"></audio>
+					
+					</textarea>
+				</section>
+				<section>
+					<img src="images/audiograph.png">
+				</section>
+				<section data-markdown>
+					<textarea data-template>
+						### `AudioNode`
+						> The AudioNode is a generic interface for representing and audio processing module.
+						
+						These are the "leaves" on the Audio Graph.
+						
+						For the sound machine I'm using `AudioBufferSourceNode`. This is the fetched and decoded data from the the audio files.
+						
+						<!-- `Fetch->ArrayBuffer->AudioBuffer->AudioBufferSourceNode` -->
+					</textarea>
+				</section>
+				<section data-markdown>
+					<textarea data-template>
+							### `GainNode`
+							This is an AudioNode that controls the gain or volume of the audio coming through. In the sound machine I'm giving each sound it's own Gain node as well as a main Gain node to pass them through.
+					</textarea>
+				</section>
+				<section data-markdown>
+					<textarea data-template>
+						### `AudioDestinationNode`
+						This represents the end destination of the Audio Graph, in this case the computer speakers out audio output.
+						
+					</textarea>
+				</section>
+				<section data-markdown>
+					<textarea data-template>
+							### Non-Audio Node elemenes
+							
+							
+							
+						</textarea>
+				</section>
+				<section data-markdown>
+					<textare#a data-template>
+						#### `ArrayBuffer`
+						Not part of the Web Audio Api.
+						> object is used to represent a generic, fixed-length raw binary data buffer
+
+						</textarea>
+				</section>
+				<section data-markdown>
+					<textarea data-template>
+							#### `AudioBuffer`
+							I think of this as an Audio ready Dataview on the `ArrayBuffer` with useful methods and properties.
+							
+						</textarea>
+				</section>
+			</section>
+			<section>
+				<section data-markdown class="small-font">
+					<textarea data-template>
+						### Quick Run-Down
+						- `fetch` data from an external file as an `ArrayBuffer`
+						- `decode` that datastream into an `AudioBuffer`
+						- Hold onto that `AudioBuffer`. I want to be able to use it repeatedly.
+						- When ready to play the sounds, create an `AudioBufferSourceNode`
+						- Load the `AudioBuffer` into the `AudioBufferSourceNode`
+						- Connect the `GainNode`(s)
+						- call the `.play` method on the Source Node
+					</textarea>
+				</section>
+				<section data-markdown class="small-font">
+					<textarea data-template>
+						- enjoy the sweet sounds of rain on a tin roof
+						<audio src="sounds/porch_rain.ogg"></audio> 
+				</textarea>
+				</section>
+			</section>
+
+			<section data-markdown>
+				<textarea data-template>
+
+							## Problems
+							My initial stab at the sound machine I built relatively quickly in Firefox. I followed some examples from MDN and other sources. I deployed to github pages and was ready to sit back, and blast the TV at bedtime.
+							
+							Alas, iOS Safari was having none of it.
+							
+							</textarea>
+
+			</section>
+			<section>
+				<section data-markdown>
+					<textarea data-template>
+							#### Filetype
+							This one maybe should have been obvious, but Firefox generates .ogg files, which is a free, open container format. While there is relatively broad support for the format, crucially, Safari doesn't support it.
+						</textarea>
+				</section>
+				<section data-markdown>
+					<textarea data-template>
+						#### Solution
+						wrapper function to test availability, if not available, serve a .mp3 file.
+						
+						```
+						formatFileName(fileName) {
+								return fileName + '.' + (new Audio().canPlayType('audio/ogg') !== '' ? 'ogg' : 'mp3')
+							}
+						```
+						</textarea>
+				</section>
+			</section>
+			<section data-markdown>
+				<textarea data-template>
+						#### Click handler
+						Unrelated to audio, but without a `style="cursor: pointer"` Safari won't recognize a tap as a click.
+				</textarea>
+
+			</section>
+			<section>
+				<section data-markdown>
+					<textarea data-template>
+					#### `.connect`
+					The `connect` method is used to connect the various `AudioNode`s. In FireFox and Chrome the connected node is returned, while Safari returns `undefined`.
+					At this point I was at the end of my patience, so instead of coming up with anthing clever, I merely connected each node individually.
+				</textarea>
+
+				</section>
+				<section data-markdown>
+					<textarea data-template>
+						Instead of this
+						```
+						source.connect(localGain).connect(mainGain).connect(Destination)
+						```
+						This
+						```
+						source.connect(localGain)
+						localGain.connect(mainGain)
+						mainGain.connect(Destination)
+						```
+						\#thanksSafari
+					</textarea>
+				</section>
+			</section>
+			<section>
+				<section data-markdown=""><textarea name="" id="" cols="30" rows="10"
+						data-template="">### Promises, promises</textarea></section>
+				<section data-markdown="">
+					<textarea name="" id="" cols="30" rows="10" data-template="">
+						#### The fastest crash-course on JS Promises in the world
+						A Promise is an object that represents the eventual completion of an asynchronous operation.
+					</textarea>
+				</section>
+				<section data-markdown="">
+					<textarea name="" id="" cols="30" rows="10" data-template="">
+						#### A little slower for those in the back
+
+						A Promise is an object that will eventual resolve to a value, or reject to an error value. You might see them in a "Promise chain."
+						
+						```
+						fetch('/my/cool/api')
+						.then(response => {do something with response; return a Promise to get the resolved value in the next...})
+						.then(data => etc.)
+						```</textarea>
+				</section>
+			</section>
+			<section>
+				<section data-markdown="">
+					<textarea name="" id="" cols="30" rows="10" data-template="">
+						#### `decodeAudioData`
+						from the MDN docs:
+						> The decodeAudioData() method of the BaseAudioContext Interface is used to asynchronously decode audio file data contained in an ArrayBuffer. In this case the ArrayBuffer is loaded from XMLHttpRequest and FileReader.
+					</textarea>
+				</section>
+				<section data-markdown="">
+					<textarea name="" id="" cols="30" rows="10" data-template="">
+							There's some good hints here that we may be dealing with Promises. And infact, the **Return value** document states "Void, or a Promise object that fulfills with the decodedData."
+					</textarea>
+				</section>
+				<section data-markdown="">
+					<textarea name="" id="" cols="30" rows="10" data-template="">
+							This is great, and it means I can include the call the decodeAudioData in a promise chain:
+
+							```
+							fetch(this.formatFileName(sound.file))
+							  .then(res => res.arrayBuffer())
+							  .then(buffer => audioContext.decodeAudioData(buffer))
+							```
+					</textarea>
+				</section>
+				<section data-markdown="">
+					<textarea name="" id="" cols="30" rows="10" data-template="">
+							...but
+					</textarea>
+				</section>
+				<section data-markdown="">
+					<textarea name="" id="" cols="30" rows="10" data-template="">
+							[<img src="images/apple-docs.png">](https://developer.apple.com/documentation/webkitjs/audiocontext/1632526-decodeaudiodata)
+					</textarea>
+				</section>
+				<section data-markdown="">
+					<textarea name="" id="" cols="30" rows="10" data-template="">
+							Safari does not return a promise from this method, instead relies on callback functions passed in as second and third arguments.
+
+							In my code I'm relying on a promise chain to run each step in the loading process, so this callback construction will break that chain.
+						
+					</textarea>
+				</section>
+				<section data-markdown>
+					<textarea data-template>
+						My solution is to wrap the method in a function that returns our own Promise:
+						```
+							promiseDecodeAudioData(arrayBuffer) {
+									return new Promise((resolve, reject) => {
+										this.audioCtx.decodeAudioData(arrayBuffer, resolve, reject } })
+									})
+								}
+							```
+					</textarea>
+				</section>
+				<section data-markdown>
+					<textarea data-template>
+					```
+						startFetch(this.formatFileName(sound.file))
+						.then(res => res.arrayBuffer())
+						.then(buffer => this.promiseDecodeAudioData(buffer))
+						.then(decodedAudio => {
+							this.audioBuffer = decodedAudio
+						})
+					```
+				</textarea>
+				</section>
+			</section>
+			<section>
+				<section class="side-by">
+					<h3>This was my big take-away</h3>
+					<img src="images/big-brain-browsers.png">
+				</section>
+				<section data-markdown>
+					<textarea data-template>
+					### List of major browsers api documentation
+					- https://developers.google.com/web/
+					- https://developer.apple.com/documentation/webkitjs
+					- Microsoft literally links to MDN for their "Documentation" link...
+					- https://developer.microsoft.com/en-us/microsoft-edge/platform/status/webaudioapi/?q=audio
+					- last but not least https://developer.mozilla.org/en-US/
+				</textarea>
+				</section>
+				<section data-markdown>
+					<textarea data-template>
+						Then I noticed this in the MDN docs about the `decodeAudioMedia`:
+						<img src="images/callbacksyntax.png">
+					</textarea>
+				</section>
+				<section class="side-by">
+					<img src="images/big-brain-browsers-f-it.png">
+				</section>
+			</section>
+
+			<section>
+				<section data-markdown>
+					<textarea data-template>
+							## Is this fun yet?
+							<audio src="sounds/sad-trumpet.ogg"></audio>
+					</textarea>
+				</section>
+				<section data-markdown>
+					<textarea data-template>
+						Working directly with Browsers is hard and full of pitfalls. 
+					</textarea>
+				</section>
+				<section data-markdown>
+					<textarea data-template>
+							### You _can_ write directly to the Web Audio API.  
+							- You're playing and experimenting
+							- The feauture had very limited scope
+							- You're writing your own framework
+						</textarea>
+				</section>
+				<section data-markdown>
+					<textarea data-template>
+							### A few frameworks built on the Web Audio API
+								- https://tonejs.github.io/
+								- https://howlerjs.com/
+								- http://hoch.github.io/WAAX/ 
+					</textarea>
+				</section>
+				</textarea>
+			</section>
+			</section>
+			</section>
+
 		</div>
+	</div>
 
-		<script src="lib/js/head.min.js"></script>
-		<script src="js/reveal.js"></script>
+	<script src="lib/js/head.min.js"></script>
+	<script src="js/reveal.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/tone/13.7.6/Tone.min.js"></script>
+	<script src="js/custom.js"></script>
 
-		<script>
-			// More info about config & dependencies:
-			// - https://github.com/hakimel/reveal.js#configuration
-			// - https://github.com/hakimel/reveal.js#dependencies
-			Reveal.initialize({
-				dependencies: [
-					{ src: 'plugin/markdown/marked.js' },
-					{ src: 'plugin/markdown/markdown.js' },
-					{ src: 'plugin/notes/notes.js', async: true },
-					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
-				]
-			});
-		</script>
-	</body>
+	<script>
+		// More info about config & dependencies:
+		// - https://github.com/hakimel/reveal.js#configuration
+		// - https://github.com/hakimel/reveal.js#dependencies
+		Reveal.initialize({
+			dependencies: [
+				{ src: 'plugin/markdown/marked.js' },
+				{ src: 'plugin/markdown/markdown.js' },
+				{ src: 'plugin/notes/notes.js', async: true },
+				{ src: 'plugin/highlight/highlight.js', async: true, callback: function () { hljs.initHighlightingOnLoad(); } }
+			]
+		});
+	</script>
+</body>
+
 </html>
